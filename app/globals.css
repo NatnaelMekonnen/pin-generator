@@ -7,12 +7,12 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
@@ -24,4 +24,12 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.animated-text {
+  background: linear-gradient(90deg, #c24cdc, #27c3a6, #c24cdc);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 10s linear infinite;
 }

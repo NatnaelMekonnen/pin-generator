@@ -1,100 +1,378 @@
+"use client";
+import { Button, IconButton, TextField, Typography } from "@mui/material";
 import Image from "next/image";
+import hero from "../public/images/hero.png";
+import { AccountCircle, Help } from "@mui/icons-material";
+import {
+  AutoAwesome,
+  SmartToy,
+  Schedule,
+  DesignServices,
+  Dashboard,
+  ShoppingCart,
+  Edit,
+  AutoFixHigh,
+  Pinterest,
+} from "@mui/icons-material";
+import { useState } from "react";
+import { Modal, Box } from "@mui/material";
+import PintersetLogo from "../public/logos/pinterest.webp";
+import ShopifyLogo from "../public/logos/shopify.webp";
+import EstyLogo from "../public/logos/etsy.webp";
+import WordpressLogo from "../public/logos/wordpress.webp";
+import AmazonLogo from "../public/logos/amazon.webp";
+import WooCommerceLogo from "../public/logos/woocomerce.webp";
+import PinGeneratorLogo from "../public/logos/logo.svg";
+import TestimonyCard from "./components/TestimonyCard";
+import SectionCard from "./components/SectionCard";
+import boost from "../public/sectionImages/boostwebp.webp";
+import aiOption from "../public/sectionImages/aiOption.webp";
+import generate from "../public/sectionImages/generate.webp";
+import pinApproved from "../public/sectionImages/pinApproved.webp";
+import stayConsistent from "../public/sectionImages/stayConsistent.webp";
+import templates from "../public/sectionImages/templates.webp";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  const features = [
+    { icon: <AutoAwesome />, text: "Full automation" },
+    { icon: <SmartToy />, text: "AI text writer" },
+    { icon: <Schedule />, text: "Bulk scheduler" },
+    { icon: <DesignServices />, text: "Template creator" },
+    { icon: <Dashboard />, text: "Multi-board pinning" },
+    { icon: <ShoppingCart />, text: "Import your products" },
+    { icon: <Edit />, text: "Edit multiple pins at once" },
+    { icon: <AutoFixHigh />, text: "Free generations" },
+    { icon: <Pinterest />, text: "Connect unlimited Pinterest profiles" },
+  ];
+  const integrations = [
+    {
+      name: "Pinterest",
+      logo: PintersetLogo,
+      url: "https://www.pinterest.com",
+    },
+    { name: "Etsy", logo: EstyLogo, url: "https://www.etsy.com" },
+    {
+      name: "Shopify",
+      logo: ShopifyLogo,
+      url: "https://www.shopify.com",
+    },
+    {
+      name: "Wordpress",
+      logo: WordpressLogo,
+      url: "https://wordpress.com",
+    },
+
+    {
+      name: "Amazon",
+      logo: AmazonLogo,
+      url: "https://amazon.com",
+    },
+    {
+      name: "WooCommerce",
+      logo: WooCommerceLogo,
+      url: "https://woocommerce.com",
+    },
+  ];
+  const navItems = [
+    { label: "Generate", href: "#generate" },
+    { label: "Schedule", href: "#schedule" },
+    { label: "Template", href: "#template" },
+    { label: "Pricing", href: "#pricing" },
+  ];
+  const testimonies = [
+    {
+      name: "Jane Doe",
+      image: "https://i.pravatar.cc/150?img=5", // replace with actual image paths
+      rating: 5,
+      testimony:
+        "This product changed my life! The user experience is fantastic and it saves me so much time. Highly recommend it to anyone.",
+    },
+    {
+      name: "John Smith",
+      image: "https://i.pravatar.cc/150?img=6",
+      rating: 4,
+      testimony:
+        "Great experience overall. The interface is intuitive, and the features are incredibly useful. Could use some minor improvements, but I'm satisfied.",
+    },
+    {
+      name: "Sarah Johnson",
+      image: "https://i.pravatar.cc/150?img=7",
+      rating: 5,
+      testimony:
+        "I've used a lot of similar tools, but this one stands out. It's fast, reliable, and has all the features I need. Excellent support team as well!",
+    },
+  ];
+  const sections = [
+    {
+      title: "Boost Engagement",
+      bulletPoints: [
+        "Increase website traffic",
+        "80% less time creating pins",
+        "5 million views case study",
+      ],
+      imageSrc: boost.src,
+      imageAlt: "boost",
+    },
+    {
+      title: "Generate Pins FAST",
+      bulletPoints: [
+        "Grab images and data from any URL",
+        "Shuffle pins",
+        "Bulk edit pin designs",
+      ],
+      imageSrc: generate.src,
+      imageAlt: "generate",
+    },
+    {
+      title: "Stay Consistent",
+      bulletPoints: [
+        "Fully automate your pinning",
+        "Bulk schedule pins",
+        "Pin to multiple boards at once",
+      ],
+      imageSrc: stayConsistent.src,
+      imageAlt: "stayConsistent",
+    },
+    {
+      title: "AI assistant",
+      bulletPoints: [
+        "Write titles and descriptions",
+        "Translate pins",
+        "Target more keyword variations with rewrites",
+      ],
+      imageSrc: aiOption.src,
+      imageAlt: "aiOption",
+    },
+    {
+      title: "Templates on Tap",
+      bulletPoints: [
+        "Loads of templates",
+        "Community templates",
+        "Build your own templates",
+      ],
+      imageSrc: templates.src,
+      imageAlt: "templates",
+    },
+    {
+      title: "Pinterest Approved",
+      bulletPoints: [
+        "Tested and verified by Pinterest",
+        "Trusted by 21,551+ companies",
+        "Integrates directly with Pinterest",
+      ],
+      imageSrc: pinApproved.src,
+      imageAlt: "pinApproved",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <header className="p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="flex items-center">
             <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={PinGeneratorLogo}
+              alt="Pin Generator Logo"
+              width={40}
+              height={40}
+              className="mr-2"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <h1 className="text-2xl font-bold">Pin Generator</h1>
+          </div>
+          <nav>
+            <ul className="flex space-x-4 items-center">
+              {navItems.map((item, index) => (
+                <li key={index}>
+                  <a href={item.href} className="px-4 py-2 hover:bg-stone-100">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <IconButton>
+                  <Help />
+                </IconButton>
+              </li>
+              <li>
+                <IconButton>
+                  <AccountCircle />
+                </IconButton>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </header>
+
+      <div className="flex flex-col px-[15ch]">
+        <div className="flex">
+          <section className="flex flex-col items-start w-2/3">
+            <Typography
+              variant="h2"
+              className="font-extrabold text-stone-600 py-10"
+            >
+              {"Create "}
+              <span className="animated-text">1 Month </span>
+              Of<br></br>
+              {"Pinterest Content "} <br></br>
+              In <span className="animated-text">1 Minute</span>
+            </Typography>
+            <Typography variant="h6" className="text-stone-600">
+              Creating engaging Pins used to take hours. We have reduced it to
+              seconds.
+            </Typography>
+            <section className="flex flex-row gap-4 w-3/4 py-10">
+              <TextField
+                fullWidth
+                variant="filled"
+                label="Enter any website URL"
+              />
+              <Button
+                variant="contained"
+                style={{ color: "white", whiteSpace: "nowrap", width: "30ch" }}
+              >
+                GENERATE PINS
+              </Button>
+            </section>
+            <Typography
+              variant="h6"
+              className="font-bold cursor-pointer"
+              style={{ color: "#28c3a6" }}
+              onClick={handleOpen}
+            >
+              Watch a 1 minute tutorial
+            </Typography>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="tutorial-modal-title"
+              aria-describedby="tutorial-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                }}
+              >
+                <iframe
+                  width="540"
+                  height="315"
+                  src="https://www.youtube.com/embed/6WOOL9XDl0s"
+                  title="Automated Pinterest Pin Maker - Pin Generator Tutorial"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+                <Button
+                  onClick={handleClose}
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    float: "right",
+                    marginTop: "3ch",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Done
+                </Button>
+              </Box>
+            </Modal>
+            <section className="mt-8 grid grid-cols-3 gap-4">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-center">
+                  <span className="mr-2" style={{ color: "#28c3a6" }}>
+                    {feature.icon}
+                  </span>
+                  <span
+                    style={{
+                      maxWidth: "20ch",
+                      whiteSpace: "wrap",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {feature.text}
+                  </span>
+                </div>
+              ))}
+            </section>
+          </section>
+          <section className="flex flex-col items-end justify-center w-1/3">
+            <Image
+              src={hero}
+              alt="hero image"
+              width={500}
+              height={300}
+              layout="responsive"
+            />
+          </section>
+        </div>
+
+        <section className="py-10 w-3/4">
+          <Typography variant="body2" className="mb-4 opacity-50">
+            Integrates with...
+          </Typography>
+          <div className="flex flex-wrap gap-8">
+            {integrations.map((integration, index) => (
+              <a
+                key={index}
+                href={integration.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-32 h-16"
+              >
+                <Image
+                  src={integration.logo}
+                  alt={`${integration.name} logo`}
+                  width={128}
+                  height={64}
+                  className="object-contain"
+                />
+              </a>
+            ))}
+          </div>
+        </section>
+        <section className="flex flex-col items-center">
+          <Typography variant="h4" className="font-bold">
+            Join 21,551+ Pinterest pros
+          </Typography>
+          <div className="flex flex-wrap flex-row gap-10 py-14">
+            {testimonies.map((testimony, key) => (
+              <TestimonyCard
+                key={key}
+                image={testimony.image}
+                name={testimony.name}
+                rating={testimony.rating}
+                testimony={testimony.testimony}
+              />
+            ))}
+          </div>
+        </section>
+        <section className="flex flex-col gap-14">
+          {sections.map((section, key) => (
+            <SectionCard
+              title={section.title}
+              bulletPoints={section.bulletPoints}
+              imageSrc={section.imageSrc}
+              imageAlt={section.imageAlt}
+            />
+          ))}
+        </section>
+      </div>
+
+      <footer className="bg-gray-800 text-white p-4">
+        <div className="container mx-auto text-center">
+          <p>&copy; 2024 Pin Generator. All rights reserved.</p>
+        </div>
       </footer>
     </div>
   );

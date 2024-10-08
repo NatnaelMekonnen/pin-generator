@@ -5,10 +5,16 @@ import {
   TextField,
   Typography,
   Tooltip,
+  Popover,
 } from "@mui/material";
 import Image from "next/image";
 import hero from "../public/images/hero.png";
-import { AccountCircle, Help } from "@mui/icons-material";
+import {
+  AccountCircle,
+  Help,
+  Menu as MenuIcon,
+  Close as XIcon,
+} from "@mui/icons-material";
 import {
   AutoAwesome,
   SmartToy,
@@ -40,8 +46,21 @@ import templates from "../public/sectionImages/templates.webp";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setIsMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setIsMenuOpen(false);
+  };
 
   const features = [
     { icon: <AutoAwesome />, text: "Full automation" },
@@ -206,7 +225,7 @@ export default function Home() {
             />
             <h1 className="text-2xl font-bold">Pin Generator</h1>
           </div>
-          <nav>
+          <nav className="hidden md:block">
             <ul className="flex space-x-4 items-center">
               {navItems.map((item, index) => (
                 <li key={index}>
@@ -236,12 +255,55 @@ export default function Home() {
               </li>
             </ul>
           </nav>
+          <div className="md:hidden">
+            <IconButton onClick={handleMenuClick}>
+              <MenuIcon />
+            </IconButton>
+          </div>
         </div>
+        <Popover
+          open={isMenuOpen}
+          anchorEl={anchorEl}
+          onClose={handleMenuClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+        >
+          <ul className="flex flex-col space-y-2 p-4">
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <Tooltip title={item.tooltip} arrow>
+                  <a
+                    href={item.href}
+                    className="block px-4 py-2 hover:bg-stone-100 text-lg"
+                  >
+                    {item.label}
+                  </a>
+                </Tooltip>
+              </li>
+            ))}
+            <li>
+              <Tooltip title="Help" arrow>
+                <Button startIcon={<Help />}>Help</Button>
+              </Tooltip>
+            </li>
+            <li>
+              <Tooltip title="Account" arrow>
+                <Button startIcon={<AccountCircle />}>Account</Button>
+              </Tooltip>
+            </li>
+          </ul>
+        </Popover>
       </header>
 
-      <div className="flex flex-col px-[15ch]">
-        <div className="flex">
-          <section className="flex flex-col items-start w-2/3">
+      <div className="flex flex-col md:px-[15ch] px-6">
+        <div className="flex md:flex-row flex-col">
+          <section className="flex flex-col items-start w-full md:w-2/3">
             <Typography
               variant="h2"
               className="font-extrabold text-stone-600 py-10"
@@ -256,7 +318,7 @@ export default function Home() {
               Creating engaging Pins used to take hours. We have reduced it to
               seconds.
             </Typography>
-            <section className="flex flex-row gap-4 w-3/4 py-10">
+            <section className="flex flex-row gap-4 md:w-3/4 py-10">
               <TextField
                 fullWidth
                 variant="filled"
@@ -323,7 +385,7 @@ export default function Home() {
                 </Button>
               </Box>
             </Modal>
-            <section className="mt-8 grid grid-cols-3 gap-4">
+            <section className="py-8 flex flex-row flex-wrap md:grid md:grid-cols-3 gap-4">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-center">
                   <span className="mr-2" style={{ color: "#28c3a6" }}>
@@ -342,7 +404,7 @@ export default function Home() {
               ))}
             </section>
           </section>
-          <section className="flex flex-col items-end justify-center w-1/3">
+          <section className="flex flex-col items-center md:items-end justify-center md:min-w-[50ch]">
             <Image
               src={hero}
               alt="hero image"
@@ -381,7 +443,7 @@ export default function Home() {
           <Typography variant="h4" className="font-bold">
             Join 21,551+ Pinterest pros
           </Typography>
-          <div className="flex flex-wrap flex-row gap-10 py-14">
+          <div className="flex flex-wrap flex-row justify-center gap-10 py-14">
             {testimonies.map((testimony, key) => (
               <TestimonyCard
                 key={key}

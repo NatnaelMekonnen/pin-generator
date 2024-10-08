@@ -396,6 +396,7 @@ export default function Home() {
         <section className="flex flex-col gap-14">
           {sections.map((section, key) => (
             <SectionCard
+              key={key}
               title={section.title}
               bulletPoints={section.bulletPoints}
               imageSrc={section.imageSrc}

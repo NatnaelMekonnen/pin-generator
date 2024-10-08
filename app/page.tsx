@@ -9,12 +9,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import hero from "../public/images/hero.png";
-import {
-  AccountCircle,
-  Help,
-  Menu as MenuIcon,
-  Close as XIcon,
-} from "@mui/icons-material";
+import { AccountCircle, Help, Menu as MenuIcon } from "@mui/icons-material";
 import {
   AutoAwesome,
   SmartToy,

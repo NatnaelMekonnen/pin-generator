@@ -1,5 +1,11 @@
 "use client";
-import { Button, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+  Tooltip,
+} from "@mui/material";
 import Image from "next/image";
 import hero from "../public/images/hero.png";
 import { AccountCircle, Help } from "@mui/icons-material";
@@ -78,10 +84,26 @@ export default function Home() {
     },
   ];
   const navItems = [
-    { label: "Generate", href: "#generate" },
-    { label: "Schedule", href: "#schedule" },
-    { label: "Template", href: "#template" },
-    { label: "Pricing", href: "#pricing" },
+    {
+      label: "Generate",
+      href: "#generate",
+      tooltip: "Create fresh pins in seconds",
+    },
+    {
+      label: "Schedule",
+      href: "#schedule",
+      tooltip: "Create your pin release schedule",
+    },
+    {
+      label: "Template",
+      href: "#template",
+      tooltip: "Create your own templates",
+    },
+    {
+      label: "Pricing",
+      href: "#pricing",
+      tooltip: "Take your Pinterest strategy to next level",
+    },
   ];
   const testimonies = [
     {
@@ -188,20 +210,29 @@ export default function Home() {
             <ul className="flex space-x-4 items-center">
               {navItems.map((item, index) => (
                 <li key={index}>
-                  <a href={item.href} className="px-4 py-2 hover:bg-stone-100">
-                    {item.label}
-                  </a>
+                  <Tooltip title={item.tooltip} arrow>
+                    <a
+                      href={item.href}
+                      className="px-4 py-2 hover:bg-stone-100 text-lg"
+                    >
+                      {item.label}
+                    </a>
+                  </Tooltip>
                 </li>
               ))}
               <li>
-                <IconButton>
-                  <Help />
-                </IconButton>
+                <Tooltip title="Help" arrow>
+                  <IconButton>
+                    <Help />
+                  </IconButton>
+                </Tooltip>
               </li>
               <li>
-                <IconButton>
-                  <AccountCircle />
-                </IconButton>
+                <Tooltip title="Account" arrow>
+                  <IconButton>
+                    <AccountCircle />
+                  </IconButton>
+                </Tooltip>
               </li>
             </ul>
           </nav>
@@ -233,7 +264,12 @@ export default function Home() {
               />
               <Button
                 variant="contained"
-                style={{ color: "white", whiteSpace: "nowrap", width: "30ch" }}
+                style={{
+                  color: "white",
+                  whiteSpace: "nowrap",
+                  width: "30ch",
+                  fontWeight: "bold",
+                }}
               >
                 GENERATE PINS
               </Button>

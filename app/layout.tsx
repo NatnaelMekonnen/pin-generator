@@ -7,7 +7,7 @@ import theme from "./theme";
 
 const catamaran = Catamaran({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
